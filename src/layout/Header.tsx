@@ -1,15 +1,8 @@
+import { motion } from 'framer-motion';
+import { Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Moon, Sun } from 'lucide-react';
-
-import { motion } from 'framer-motion';
 import { useTheme } from '../components/theme-provider';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../components/ui/dropdown-menu';
 import { Button } from '../components/ui/button';
 
 const navigationLinks = [
@@ -22,7 +15,11 @@ const navigationLinks = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-white/70 dark:bg-black/60 border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
@@ -47,48 +44,45 @@ export default function Header() {
             </Link>
           ))}
 
-          {/* Theme Toggle */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="w-8 h-8 rounded-full border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800"
-              >
-                <Sun className="h-4 w-4 text-amber-500 transition-all duration-500 dark:scale-0 dark:-rotate-90" />
-                <Moon className="absolute h-4 w-4 text-amber-400 scale-0 rotate-90 transition-all duration-500 dark:scale-100 dark:rotate-0" />
-                <span className="sr-only">Toggle theme</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 shadow-md text-sm"
-            >
-              <DropdownMenuItem onClick={() => setTheme('light')}>☀️ Light</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('dark')}>🌙 Dark</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme('system')}>🖥 System</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Desktop Theme Toggle */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={toggleTheme}
+            className="w-8 h-8 rounded-full border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 relative"
+          >
+            <Sun
+              className={`h-4 w-4 text-amber-500 transition-all duration-500 ${
+                theme === 'dark' ? 'scale-0 -rotate-90' : 'scale-100 rotate-0'
+              }`}
+            />
+            <Moon
+              className={`absolute h-4 w-4 text-amber-400 transition-all duration-500 ${
+                theme === 'dark' ? 'scale-100 rotate-0' : 'scale-0 rotate-90'
+              }`}
+            />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
         </div>
 
-        {/* Mobile Controls */}
-        <div className="flex md:hidden items-center gap-2">
-          <motion.button
+        {/* Mobile Hamburger Button */}
+        <div className="flex md:hidden items-center gap-2 z-50">
+          <button
             onClick={() => setIsOpen(!isOpen)}
-            whileTap={{ scale: 0.9 }}
-            className="text-gray-900 dark:text-gray-100 text-2xl"
+            className="text-gray-900 dark:text-gray-100 text-2xl z-50 focus:outline-none"
           >
             {isOpen ? '✖' : '☰'}
-          </motion.button>
+          </button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
       <motion.div
+        initial={{ y: -300, opacity: 0 }}
         animate={{ y: isOpen ? 0 : -300, opacity: isOpen ? 1 : 0 }}
         transition={{ duration: 0.25 }}
         className="md:hidden fixed top-14 left-0 w-full z-40 flex flex-col gap-3 px-6 py-4
-                   bg-white/90 dark:bg-black/90 backdrop-blur-md border-t border-gray-200 dark:border-gray-800"
+             bg-white/90 dark:bg-black/90 backdrop-blur-md border-t border-gray-200 dark:border-gray-800"
       >
         {navigationLinks.map((link) => (
           <Link
@@ -100,6 +94,28 @@ export default function Header() {
             {link.label}
           </Link>
         ))}
+
+        {/* Mobile Theme Toggle */}
+        <div className="flex justify-center mt-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={toggleTheme}
+            className="w-10 h-10 rounded-full border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 hover:bg-gray-200 dark:hover:bg-gray-800 relative"
+          >
+            <Sun
+              className={`h-5 w-5 text-amber-500 transition-all duration-500 ${
+                theme === 'dark' ? 'scale-0 -rotate-90' : 'scale-100 rotate-0'
+              }`}
+            />
+            <Moon
+              className={`absolute h-5 w-5 text-amber-400 transition-all duration-500 ${
+                theme === 'dark' ? 'scale-100 rotate-0' : 'scale-0 rotate-90'
+              }`}
+            />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </div>
       </motion.div>
     </header>
   );
