@@ -1,6 +1,7 @@
 // src/App.tsx
-import { ThemeProvider } from "@/components/theme-provider";
-import MainLayout from "@/layout/MainLayout";
+
+import { ThemeProvider } from './components/theme-provider';
+import MainLayout from './layout/MainLayout';
 
 function App() {
   return (

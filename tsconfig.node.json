@@ -1,8 +1,9 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2023",
-    "lib": ["ES2023"],
+
+    "lib": ["ESNext"], // ES2023 এর বদলে ESNext
     "module": "ESNext",
     "skipLibCheck": true,
 

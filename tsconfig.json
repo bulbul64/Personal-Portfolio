@@ -1,13 +1,13 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
-    "baseUrl": ".",
+    "ignoreDeprecations": "6.0", // deprecated warning suppress
+    "baseUrl": ".", // non-relative imports resolve করার জন্য
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "strict": true // সব ধরনের strict type checking enable
   }
 }

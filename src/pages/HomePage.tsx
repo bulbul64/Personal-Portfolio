@@ -1,15 +1,15 @@
-import Hero from "@/layout/Hero";
-import Skills from "@/components/skills/Skills";
-import ProjectsItem from "@/components/projects/ProjectsItem";
-import About from "@/components/about/about";
-import Connect from "@/components/form/Connect";
+import About from '../components/about/About';
+import ProjectsSection from '../components/projects/ProjectsItem';
+import Hero from '../layout/Hero';
+import Connect from './contactPage';
+import SkillsSection from './SkillsSection';
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Skills />
-      <ProjectsItem />
+      <SkillsSection />
+      <ProjectsSection />
       <About />
       <Connect />
     </>

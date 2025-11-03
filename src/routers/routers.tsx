@@ -1,19 +1,22 @@
-import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "@/layout/MainLayout";
-import HomePage from "@/pages/HomePage";
-import About from "@/components/about/about";
-import SkillsSection from "@/pages/SkillsSection";
-import ProjectsPage from "@/pages/ProjectsPage";
+import { createBrowserRouter } from 'react-router-dom';
+import MainLayout from '../layout/MainLayout';
+import HomePage from '../pages/HomePage';
+
+import SkillsSection from '../pages/SkillsSection';
+import ProjectsSection from '../pages/ProjectsPage';
+import Contact from '../components/form/Contact';
+import About from '../pages/About';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     Component: MainLayout,
     children: [
       { index: true, Component: HomePage }, // হোম
-      { path: "about", Component: About }, // About
-      { path: "skillsSection", Component: SkillsSection }, // Skills
-      { path: "projectsPage", Component: ProjectsPage }, // ProjectsPage
+      { path: 'about', Component: About }, // About
+      { path: 'skillsSection', Component: SkillsSection }, // Skills
+      { path: 'projectsPage', Component: ProjectsSection }, // ProjectsPage
+      { path: 'contactPage', Component: Contact }, // ProjectsPage
     ],
   },
 ]);
